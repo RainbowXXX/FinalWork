@@ -1,6 +1,6 @@
 ﻿namespace FinalWork.UIForms
 {
-    partial class PasswdChange
+    partial class PasswdChangeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PasswdChangeForm));
             label_username_hint = new Label();
             label_old_passwd_hint = new Label();
             label_new_passwd_hint = new Label();
@@ -43,7 +44,8 @@
             // label_username_hint
             // 
             label_username_hint.AutoSize = true;
-            label_username_hint.Location = new Point(80, 64);
+            label_username_hint.BackColor = Color.Transparent;
+            label_username_hint.Location = new Point(281, 162);
             label_username_hint.Name = "label_username_hint";
             label_username_hint.Size = new Size(44, 17);
             label_username_hint.TabIndex = 0;
@@ -52,7 +54,8 @@
             // label_old_passwd_hint
             // 
             label_old_passwd_hint.AutoSize = true;
-            label_old_passwd_hint.Location = new Point(80, 93);
+            label_old_passwd_hint.BackColor = Color.Transparent;
+            label_old_passwd_hint.Location = new Point(281, 191);
             label_old_passwd_hint.Name = "label_old_passwd_hint";
             label_old_passwd_hint.Size = new Size(44, 17);
             label_old_passwd_hint.TabIndex = 1;
@@ -61,7 +64,8 @@
             // label_new_passwd_hint
             // 
             label_new_passwd_hint.AutoSize = true;
-            label_new_passwd_hint.Location = new Point(80, 122);
+            label_new_passwd_hint.BackColor = Color.Transparent;
+            label_new_passwd_hint.Location = new Point(281, 220);
             label_new_passwd_hint.Name = "label_new_passwd_hint";
             label_new_passwd_hint.Size = new Size(44, 17);
             label_new_passwd_hint.TabIndex = 2;
@@ -70,7 +74,8 @@
             // label_confirm_password_hint
             // 
             label_confirm_password_hint.AutoSize = true;
-            label_confirm_password_hint.Location = new Point(69, 151);
+            label_confirm_password_hint.BackColor = Color.Transparent;
+            label_confirm_password_hint.Location = new Point(270, 249);
             label_confirm_password_hint.Name = "label_confirm_password_hint";
             label_confirm_password_hint.Size = new Size(56, 17);
             label_confirm_password_hint.TabIndex = 3;
@@ -78,14 +83,14 @@
             // 
             // textBox_username_input
             // 
-            textBox_username_input.Location = new Point(129, 61);
+            textBox_username_input.Location = new Point(330, 159);
             textBox_username_input.Name = "textBox_username_input";
             textBox_username_input.Size = new Size(100, 23);
             textBox_username_input.TabIndex = 4;
             // 
             // textBox_old_passwd_input
             // 
-            textBox_old_passwd_input.Location = new Point(129, 90);
+            textBox_old_passwd_input.Location = new Point(330, 188);
             textBox_old_passwd_input.Name = "textBox_old_passwd_input";
             textBox_old_passwd_input.PasswordChar = '*';
             textBox_old_passwd_input.Size = new Size(100, 23);
@@ -93,7 +98,7 @@
             // 
             // textBox_new_passwd_input
             // 
-            textBox_new_passwd_input.Location = new Point(129, 119);
+            textBox_new_passwd_input.Location = new Point(330, 217);
             textBox_new_passwd_input.Name = "textBox_new_passwd_input";
             textBox_new_passwd_input.PasswordChar = '*';
             textBox_new_passwd_input.Size = new Size(100, 23);
@@ -101,7 +106,7 @@
             // 
             // textBox_confirm_password_input
             // 
-            textBox_confirm_password_input.Location = new Point(129, 148);
+            textBox_confirm_password_input.Location = new Point(330, 246);
             textBox_confirm_password_input.Name = "textBox_confirm_password_input";
             textBox_confirm_password_input.PasswordChar = '*';
             textBox_confirm_password_input.Size = new Size(100, 23);
@@ -109,7 +114,7 @@
             // 
             // button_cancel
             // 
-            button_cancel.Location = new Point(26, 207);
+            button_cancel.Location = new Point(227, 305);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(75, 23);
             button_cancel.TabIndex = 8;
@@ -119,7 +124,7 @@
             // 
             // button_apply
             // 
-            button_apply.Location = new Point(208, 207);
+            button_apply.Location = new Point(409, 305);
             button_apply.Name = "button_apply";
             button_apply.Size = new Size(75, 23);
             button_apply.TabIndex = 9;
@@ -127,11 +132,13 @@
             button_apply.UseVisualStyleBackColor = true;
             button_apply.Click += button_apply_Click;
             // 
-            // PasswdChange
+            // PasswdChangeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(327, 279);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(722, 467);
             Controls.Add(button_apply);
             Controls.Add(button_cancel);
             Controls.Add(textBox_confirm_password_input);
@@ -142,7 +149,7 @@
             Controls.Add(label_new_passwd_hint);
             Controls.Add(label_old_passwd_hint);
             Controls.Add(label_username_hint);
-            Name = "PasswdChange";
+            Name = "PasswdChangeForm";
             Text = "修改密码";
             ResumeLayout(false);
             PerformLayout();

@@ -1,0 +1,6 @@
+{
+  "server"		:"server_ip_or_domain",
+  "database"	:"your_database_name",
+  "user"		:"your_database_username_not_admin",
+  "password"	:"your_database_userpasswd"
+}

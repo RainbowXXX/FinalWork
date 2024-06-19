@@ -1,6 +1,6 @@
 ﻿namespace FinalWork.UIForms
 {
-    partial class BorrowReturnForm
+    partial class BookInfoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BorrowReturnForm));
             groupBox1 = new GroupBox();
-            button2 = new Button();
             button1 = new Button();
             textBox_bookid_input = new TextBox();
             textBox_inventory_input = new TextBox();
@@ -43,6 +41,9 @@
             label_author_hint = new Label();
             textBox_bookname_input = new TextBox();
             label_bookname_hint = new Label();
+            button_add = new Button();
+            button_cancel = new Button();
+            button_change = new Button();
             label_bookid_hint = new Label();
             listView_users = new ListView();
             column_id = new ColumnHeader();
@@ -51,18 +52,12 @@
             column_description = new ColumnHeader();
             column_ISBN = new ColumnHeader();
             column_inventory = new ColumnHeader();
-            listView1 = new ListView();
-            columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader5 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
             groupBox1.BackColor = Color.Transparent;
-            groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(textBox_bookid_input);
             groupBox1.Controls.Add(textBox_inventory_input);
@@ -75,31 +70,24 @@
             groupBox1.Controls.Add(label_author_hint);
             groupBox1.Controls.Add(textBox_bookname_input);
             groupBox1.Controls.Add(label_bookname_hint);
+            groupBox1.Controls.Add(button_add);
+            groupBox1.Controls.Add(button_cancel);
+            groupBox1.Controls.Add(button_change);
             groupBox1.Controls.Add(label_bookid_hint);
-            groupBox1.Location = new Point(458, 32);
+            groupBox1.Location = new Point(458, 29);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(330, 411);
-            groupBox1.TabIndex = 5;
+            groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "书籍信息";
             // 
-            // button2
-            // 
-            button2.Location = new Point(249, 382);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 20;
-            button2.Text = " 还书";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // button1
             // 
-            button1.Location = new Point(6, 382);
+            button1.Location = new Point(90, 380);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 19;
-            button1.Text = " 借书";
+            button1.Text = "删除";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -190,6 +178,36 @@
             label_bookname_hint.TabIndex = 8;
             label_bookname_hint.Text = "书名";
             // 
+            // button_add
+            // 
+            button_add.Location = new Point(249, 380);
+            button_add.Name = "button_add";
+            button_add.Size = new Size(75, 23);
+            button_add.TabIndex = 7;
+            button_add.Text = "添加";
+            button_add.UseVisualStyleBackColor = true;
+            button_add.Click += button_add_Click;
+            // 
+            // button_cancel
+            // 
+            button_cancel.Location = new Point(9, 380);
+            button_cancel.Name = "button_cancel";
+            button_cancel.Size = new Size(75, 23);
+            button_cancel.TabIndex = 6;
+            button_cancel.Text = "取消";
+            button_cancel.UseVisualStyleBackColor = true;
+            button_cancel.Click += button_cancel_Click;
+            // 
+            // button_change
+            // 
+            button_change.Location = new Point(168, 380);
+            button_change.Name = "button_change";
+            button_change.Size = new Size(75, 23);
+            button_change.TabIndex = 5;
+            button_change.Text = "更改";
+            button_change.UseVisualStyleBackColor = true;
+            button_change.Click += button_change_Click;
+            // 
             // label_bookid_hint
             // 
             label_bookid_hint.AutoSize = true;
@@ -204,10 +222,10 @@
             listView_users.Columns.AddRange(new ColumnHeader[] { column_id, column_title, column_author, column_description, column_ISBN, column_inventory });
             listView_users.FullRowSelect = true;
             listView_users.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listView_users.Location = new Point(12, 36);
+            listView_users.Location = new Point(12, 33);
             listView_users.Name = "listView_users";
-            listView_users.Size = new Size(440, 198);
-            listView_users.TabIndex = 4;
+            listView_users.Size = new Size(440, 407);
+            listView_users.TabIndex = 2;
             listView_users.UseCompatibleStateImageBehavior = false;
             listView_users.View = View.Details;
             listView_users.SelectedIndexChanged += listView_users_SelectedIndexChanged;
@@ -243,53 +261,17 @@
             column_inventory.Text = "库存";
             column_inventory.Width = 36;
             // 
-            // listView1
-            // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, columnHeader6 });
-            listView1.FullRowSelect = true;
-            listView1.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listView1.Location = new Point(12, 245);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(440, 198);
-            listView1.TabIndex = 6;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
-            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Tag = "";
-            columnHeader1.Text = "id";
-            columnHeader1.Width = 48;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Tag = "";
-            columnHeader2.Text = "书id";
-            columnHeader2.Width = 36;
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "书名";
-            columnHeader5.Width = 36;
-            // 
-            // columnHeader6
-            // 
-            columnHeader6.Text = "借书日期";
-            columnHeader6.Width = 36;
-            // 
-            // BorrowReturnForm
+            // BookInfoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImage = Properties.Resources.微信图片_20240620020117;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
-            Controls.Add(listView1);
             Controls.Add(groupBox1);
             Controls.Add(listView_users);
-            Name = "BorrowReturnForm";
-            Text = "User";
+            Name = "BookInfoForm";
+            Text = "Admin";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
@@ -298,7 +280,16 @@
         #endregion
 
         private GroupBox groupBox1;
-        private TextBox textBox_bookid_input;
+        private Button button_add;
+        private Button button_cancel;
+        private Button button_change;
+        private Label label_bookid_hint;
+        private ListView listView_users;
+        private ColumnHeader column_id;
+        private ColumnHeader column_title;
+        private ColumnHeader column_author;
+        private ColumnHeader column_ISBN;
+        private ColumnHeader column_inventory;
         private TextBox textBox_inventory_input;
         private Label label_inventory_hint;
         private TextBox textBox_ISBN_input;
@@ -309,20 +300,8 @@
         private Label label_author_hint;
         private TextBox textBox_bookname_input;
         private Label label_bookname_hint;
-        private Label label_bookid_hint;
-        private ListView listView_users;
-        private ColumnHeader column_id;
-        private ColumnHeader column_title;
-        private ColumnHeader column_author;
+        private TextBox textBox_bookid_input;
         private ColumnHeader column_description;
-        private ColumnHeader column_ISBN;
-        private ColumnHeader column_inventory;
-        private ListView listView1;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader5;
-        private ColumnHeader columnHeader6;
-        private Button button2;
         private Button button1;
     }
 }

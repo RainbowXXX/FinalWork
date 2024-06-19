@@ -2,6 +2,7 @@ using Dapper;
 using FinalWork.Configs;
 using FinalWork.Entities;
 using FinalWork.Tools;
+using FinalWork.UIForms.SubUI;
 using MySql.Data.MySqlClient;
 using System.Data;
 
@@ -13,7 +14,7 @@ namespace FinalWork.UIForms
         {
             if (SqlHandler.Instance.conn.Query<UserLoginEntity>("SELECT * FROM user_login").ToList().Count == 0)
             {
-                new NewUse().ShowDialog();
+                new NewUseForm().ShowDialog();
             }
             InitializeComponent();
         }
@@ -21,29 +22,30 @@ namespace FinalWork.UIForms
         private void button_login_Click(object sender, EventArgs e)
         {
             var user = UserTools.validate_user(textBox_username_input.Text, textBox_passwd_input.Text);
-            if(user == null)
+            if (user == null)
             {
                 login_failed();
                 return;
             }
 
             GlobalTools.cur_uid = user.Id;
+            GlobalTools.user_level = user.Privilege;
             // 验证通过
             switch (user.Privilege)
             {
                 case UserLoginEntity.PrivilegeLevel.SYSADMIN_LEVEL:
                     this.Hide();
-                    new SysAdmin().ShowDialog();
+                    new SysAdminUI().ShowDialog();
                     this.Show();
                     break;
                 case UserLoginEntity.PrivilegeLevel.ADMIN_LEVEL:
                     this.Hide();
-                    new BookInfo().ShowDialog();
+                    new AdminUI().ShowDialog();
                     this.Show();
                     break;
                 case UserLoginEntity.PrivilegeLevel.USER_LEVEL:
                     this.Hide();
-                    new BorrowReturnForm().ShowDialog();
+                    new UserUI().ShowDialog();
                     this.Show();
                     break;
 
@@ -54,9 +56,14 @@ namespace FinalWork.UIForms
             textBox_passwd_input.Text = string.Empty;
         }
 
-        private DialogResult login_failed(string reason= "用户名或密码错误")
+        private DialogResult login_failed(string reason = "用户名或密码错误")
         {
             return MessageBox.Show(reason, "登录失败.", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new RegisterForm().ShowDialog();
         }
     }
 }

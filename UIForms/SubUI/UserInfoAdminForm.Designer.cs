@@ -1,6 +1,6 @@
 ﻿namespace FinalWork.UIForms
 {
-    partial class SysAdmin
+    partial class UserInfoAdminForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,6 +38,7 @@
             column_profession = new ColumnHeader();
             column_hobby = new ColumnHeader();
             groupBox1 = new GroupBox();
+            button1 = new Button();
             button_add = new Button();
             button_cancel = new Button();
             button_change = new Button();
@@ -127,6 +128,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.Transparent;
+            groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(button_add);
             groupBox1.Controls.Add(button_cancel);
             groupBox1.Controls.Add(button_change);
@@ -141,6 +144,16 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "用户信息";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(90, 380);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 8;
+            button1.Text = "删除";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button_add
             // 
@@ -164,7 +177,7 @@
             // 
             // button_change
             // 
-            button_change.Location = new Point(131, 380);
+            button_change.Location = new Point(168, 380);
             button_change.Name = "button_change";
             button_change.Size = new Size(75, 23);
             button_change.TabIndex = 5;
@@ -345,7 +358,7 @@
             // 退出ToolStripMenuItem
             // 
             退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            退出ToolStripMenuItem.Size = new Size(180, 22);
+            退出ToolStripMenuItem.Size = new Size(100, 22);
             退出ToolStripMenuItem.Text = "退出";
             退出ToolStripMenuItem.Click += 退出ToolStripMenuItem_Click;
             // 
@@ -375,17 +388,20 @@
             关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
             关于ToolStripMenuItem.Size = new Size(100, 22);
             关于ToolStripMenuItem.Text = "关于";
+            关于ToolStripMenuItem.Click += 关于ToolStripMenuItem_Click;
             // 
-            // SysAdmin
+            // UserInfoAdminForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.微信图片_20240620020117;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
             Controls.Add(groupBox1);
             Controls.Add(listView_users);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
-            Name = "SysAdmin";
+            Name = "UserInfoAdminForm";
             Text = "系统管理";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -436,5 +452,6 @@
         private ToolStripMenuItem 帮助ToolStripMenuItem;
         private ToolStripMenuItem 关于ToolStripMenuItem;
         private ToolStripMenuItem 更改密码ToolStripMenuItem;
+        private Button button1;
     }
 }

@@ -2,7 +2,6 @@
 using FinalWork.Configs;
 using FinalWork.Entities;
 using FinalWork.Tools;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,27 +12,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FinalWork.UIForms
+namespace FinalWork.UIForms.SubUI
 {
-    public partial class NewUse : Form
+    public partial class RegisterForm : Form
     {
-        public NewUse()
+        public RegisterForm()
         {
             InitializeComponent();
         }
 
         private void button_register_Click(object sender, EventArgs e)
         {
-            if(textBox_password_input.Text.ToString() != textBox_password_input.Text.ToString()) {
+            if (textBox_password_input.Text.ToString() != textBox_password_input.Text.ToString())
+            {
                 Retry("两次密码输入不同");
                 return;
             }
-            string salt = UUIDTool.GetUUID();
-            string hash = Sha256Tool.Calc(textBox_password_input.Text.ToString() + salt);
-            var optionalParams = new { Privilege = UserLoginEntity.PrivilegeLevel.SYSADMIN_LEVEL, UserName = textBox_username_input.Text.ToString(), PasswdSalt = salt, PasswdHash = hash };
-            var num_row_affected = SqlHandler.Instance.conn.Execute("INSERT INTO work_database.user_login (privilege, user_name, password_hash, password_salt) VALUES (@Privilege, @UserName, @PasswdHash, @PasswdSalt);", optionalParams);
-
-            if(num_row_affected > 0) {
+            UserOptionalInfoEntity userOptionalInfo = new UserOptionalInfoEntity(0, null, null, null, null, null, null);
+            if(UserTools.CreateUser(textBox_username_input.Text, UserLoginEntity.PrivilegeLevel.USER_LEVEL, userOptionalInfo) is not null)
+            {
+                UserTools.ChangePasswd(textBox_username_input.Text, textBox_password_input.Text);
                 Success();
                 this.Close();
                 return;
@@ -43,13 +41,19 @@ namespace FinalWork.UIForms
             return;
         }
 
-        private DialogResult Retry(string reason) {
+        private DialogResult Retry(string reason)
+        {
             return MessageBox.Show(reason, "注册失败", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
         }
 
         private DialogResult Success(string reason = "")
         {
             return DialogResult.None;
+        }
+
+        private void label_username_hint_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

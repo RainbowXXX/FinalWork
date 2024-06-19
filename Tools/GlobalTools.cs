@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalWork.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace FinalWork.Tools
     public class GlobalTools
     {
         public static int cur_uid = -1;
+        public static UserLoginEntity.PrivilegeLevel user_level;
     }
 }

@@ -4,6 +4,7 @@ using FinalWork.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,17 @@ namespace FinalWork.Tools
         public static List<BookEntity> GetBooks()
         {
             return SqlHandler.Instance.conn.Query<BookEntity>("SELECT * FROM books;").ToList();
+        }
+        public static bool RemoveBook(int bid)
+        {
+            using (var transaction = SqlHandler.Instance.conn.BeginTransaction())
+            {
+                var tmp = new { Bid = bid };
+                SqlHandler.Instance.conn.Execute("DELETE FROM borrow WHERE bid = @Bid;", tmp);
+                SqlHandler.Instance.conn.Execute("DELETE FROM books WHERE id = @Bid;", tmp);
+                transaction.Commit();
+            }
+            return true;
         }
 
         public static bool AddBook(BookEntity book)
@@ -31,6 +43,18 @@ namespace FinalWork.Tools
             var optionalParams = new { Id = book_id };
             var res = SqlHandler.Instance.conn.Query<BookEntity>("SELECT * FROM books WHERE id = @Id;", optionalParams).ToList();
             if(res.Count > 0) return res[0];
+            return null;
+        }
+
+        public static List<BookEntity>? FindBook(BookEntity book)
+        {
+            var res = SqlHandler.Instance.conn.Query<BookEntity>("SELECT * FROM books WHERE " +
+                "title REGEXP @Title AND \r\n" +
+                "author REGEXP @Author AND \r\n" +
+                "description REGEXP @Description AND \r\n" +
+                "ISBN REGEXP @ISBN;", book)
+                .ToList();
+            if (res.Count > 0) return res;
             return null;
         }
     }

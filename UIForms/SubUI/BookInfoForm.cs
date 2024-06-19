@@ -14,10 +14,10 @@ using System.Windows.Forms;
 
 namespace FinalWork.UIForms
 {
-    public partial class BookInfo : Form
+    public partial class BookInfoForm : Form
     {
         List<BookEntity> bookEntities = new List<BookEntity>();
-        public BookInfo()
+        public BookInfoForm()
         {
             InitializeComponent();
             refresh_content();
@@ -51,7 +51,7 @@ namespace FinalWork.UIForms
 
         private void button_add_Click(object sender, EventArgs e)
         {
-            BookEntity book = new BookEntity(0, textBox_bookname_input.Text, textBox_description_input.Text, textBox_author_input.Text, textBox_ISBN_input.Text, int.Parse(textBox_inventory_input.Text));
+            BookEntity book = new BookEntity(0, textBox_bookname_input.Text, textBox_author_input.Text, textBox_description_input.Text, textBox_ISBN_input.Text, int.Parse(textBox_inventory_input.Text));
             BookTools.AddBook(book);
             refresh_content();
         }
@@ -69,11 +69,11 @@ namespace FinalWork.UIForms
 
             this.textBox_bookid_input.Text = selectedSubItems[0].Text;
             this.textBox_bookid_input.Enabled = false;
-            this.textBox_bookname_input.Text =       selectedSubItems[1].Text;
-            this.textBox_author_input.Text =         selectedSubItems[2].Text;
-            this.textBox_description_input.Text =    selectedSubItems[3].Text;
-            this.textBox_ISBN_input.Text =           selectedSubItems[4].Text;
-            this.textBox_inventory_input.Text =      selectedSubItems[5].Text;
+            this.textBox_bookname_input.Text = selectedSubItems[1].Text;
+            this.textBox_author_input.Text = selectedSubItems[2].Text;
+            this.textBox_description_input.Text = selectedSubItems[3].Text;
+            this.textBox_ISBN_input.Text = selectedSubItems[4].Text;
+            this.textBox_inventory_input.Text = selectedSubItems[5].Text;
 
         }
 
@@ -103,6 +103,26 @@ namespace FinalWork.UIForms
             {
                 column.Width = -2;
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string book_to_del = textBox_bookid_input.Text;
+            if (GlobalTools.user_level<UserLoginEntity.PrivilegeLevel.ADMIN_LEVEL)
+            {
+                MessageBox.Show("没有权限", "删除确认", MessageBoxButtons.OK);
+                return;
+            }
+            if (book_to_del == "")
+            {
+                MessageBox.Show("请选择书籍", "删除确认", MessageBoxButtons.OK);
+                return;
+            }
+            var ret = MessageBox.Show("是否删除 " + book_to_del + " 书籍?", "删除确认", MessageBoxButtons.OKCancel);
+            if (ret != DialogResult.OK) return;
+            BookTools.RemoveBook(int.Parse(book_to_del));
+            refresh_content();
+            return;
         }
     }
 }

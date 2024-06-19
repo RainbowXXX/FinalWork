@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserUI));
             menuStrip1 = new MenuStrip();
             文件ToolStripMenuItem = new ToolStripMenuItem();
             退出ToolStripMenuItem = new ToolStripMenuItem();
@@ -35,14 +36,17 @@
             借阅管理ToolStripMenuItem = new ToolStripMenuItem();
             图书查询ToolStripMenuItem = new ToolStripMenuItem();
             账户管理ToolStripMenuItem = new ToolStripMenuItem();
+            图书推荐榜ToolStripMenuItem = new ToolStripMenuItem();
             帮助ToolStripMenuItem = new ToolStripMenuItem();
             关于ToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
+            label2 = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = SystemColors.Control;
             menuStrip1.Items.AddRange(new ToolStripItem[] { 文件ToolStripMenuItem, 编辑ToolStripMenuItem, 帮助ToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -66,7 +70,7 @@
             // 
             // 编辑ToolStripMenuItem
             // 
-            编辑ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 借阅管理ToolStripMenuItem, 图书查询ToolStripMenuItem, 账户管理ToolStripMenuItem });
+            编辑ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 借阅管理ToolStripMenuItem, 图书查询ToolStripMenuItem, 账户管理ToolStripMenuItem, 图书推荐榜ToolStripMenuItem });
             编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
             编辑ToolStripMenuItem.Size = new Size(44, 21);
             编辑ToolStripMenuItem.Text = "编辑";
@@ -74,23 +78,30 @@
             // 借阅管理ToolStripMenuItem
             // 
             借阅管理ToolStripMenuItem.Name = "借阅管理ToolStripMenuItem";
-            借阅管理ToolStripMenuItem.Size = new Size(180, 22);
+            借阅管理ToolStripMenuItem.Size = new Size(136, 22);
             借阅管理ToolStripMenuItem.Text = "借阅管理";
             借阅管理ToolStripMenuItem.Click += 借阅管理ToolStripMenuItem_Click;
             // 
             // 图书查询ToolStripMenuItem
             // 
             图书查询ToolStripMenuItem.Name = "图书查询ToolStripMenuItem";
-            图书查询ToolStripMenuItem.Size = new Size(180, 22);
+            图书查询ToolStripMenuItem.Size = new Size(136, 22);
             图书查询ToolStripMenuItem.Text = "图书查询";
             图书查询ToolStripMenuItem.Click += 图书查询ToolStripMenuItem_Click;
             // 
             // 账户管理ToolStripMenuItem
             // 
             账户管理ToolStripMenuItem.Name = "账户管理ToolStripMenuItem";
-            账户管理ToolStripMenuItem.Size = new Size(180, 22);
+            账户管理ToolStripMenuItem.Size = new Size(136, 22);
             账户管理ToolStripMenuItem.Text = "账户管理";
             账户管理ToolStripMenuItem.Click += 账户管理ToolStripMenuItem_Click;
+            // 
+            // 图书推荐榜ToolStripMenuItem
+            // 
+            图书推荐榜ToolStripMenuItem.Name = "图书推荐榜ToolStripMenuItem";
+            图书推荐榜ToolStripMenuItem.Size = new Size(136, 22);
+            图书推荐榜ToolStripMenuItem.Text = "图书推荐榜";
+            图书推荐榜ToolStripMenuItem.Click += 图书推荐榜ToolStripMenuItem_Click;
             // 
             // 帮助ToolStripMenuItem
             // 
@@ -104,21 +115,38 @@
             关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
             关于ToolStripMenuItem.Size = new Size(100, 22);
             关于ToolStripMenuItem.Text = "关于";
+            关于ToolStripMenuItem.Click += 关于ToolStripMenuItem_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(309, 193);
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("华文行楷", 35F);
+            label1.Location = new Point(199, 243);
             label1.Name = "label1";
-            label1.Size = new Size(104, 34);
+            label1.Size = new Size(398, 50);
             label1.TabIndex = 1;
-            label1.Text = "欢迎来到\r\n图书借阅管理系统";
+            label1.Text = "图书借阅管理系统";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("华文行楷", 35F);
+            label2.Location = new Point(295, 170);
+            label2.Name = "label2";
+            label2.Size = new Size(210, 50);
+            label2.TabIndex = 2;
+            label2.Text = "欢迎来到";
             // 
             // UserUI
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -142,5 +170,7 @@
         private ToolStripMenuItem 帮助ToolStripMenuItem;
         private ToolStripMenuItem 关于ToolStripMenuItem;
         private Label label1;
+        private ToolStripMenuItem 图书推荐榜ToolStripMenuItem;
+        private Label label2;
     }
 }

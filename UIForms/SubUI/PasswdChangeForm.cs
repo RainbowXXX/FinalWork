@@ -14,9 +14,9 @@ using System.Windows.Forms;
 
 namespace FinalWork.UIForms
 {
-    public partial class PasswdChange : Form
+    public partial class PasswdChangeForm : Form
     {
-        public PasswdChange(string username)
+        public PasswdChangeForm(string username)
         {
             InitializeComponent();
             this.textBox_username_input.Text = username;

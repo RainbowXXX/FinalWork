@@ -2,6 +2,7 @@
 using FinalWork.Configs;
 using FinalWork.Entities;
 using FinalWork.Tools;
+using FinalWork.UIForms.SubUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,13 +20,14 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace FinalWork.UIForms
 {
-    public partial class SysAdmin : Form
+    public partial class UserInfoAdminForm : Form
     {
         private List<UserLoginEntity> userLoginEntities;
 
-        public SysAdmin()
+        public UserInfoAdminForm()
         {
             InitializeComponent();
+            clearDetail();
             refresh_content();
         }
 
@@ -84,6 +86,7 @@ namespace FinalWork.UIForms
 
         private void button_cancel_Click(object sender, EventArgs e)
         {
+            panel_optional.Visible = true;
             refresh_content();
             ShowDetail();
         }
@@ -101,7 +104,8 @@ namespace FinalWork.UIForms
 
             this.textBox_username_input.Text = selectedSubItems[0].Text;
             this.textBox_username_input.Enabled = false;
-            this.comboBox_privilege_input.SelectedIndex = (int)Enum.Parse(typeof(UserLoginEntity.PrivilegeLevel), selectedSubItems[1].Text);
+            this.comboBox_privilege_input.Text = selectedSubItems[1].Text;
+            this.comboBox_privilege_input.Enabled = true;
 
             if (!this.panel_optional.Visible) return;
 
@@ -121,6 +125,21 @@ namespace FinalWork.UIForms
 
         private void button_change_Click(object sender, EventArgs e)
         {
+            var selectedItems = listView_users.SelectedItems;
+            if (selectedItems.Count <= 0)
+            {
+                clearDetail();
+                return;
+            }
+
+            var selectedSubItems = selectedItems[0].SubItems;
+            UserLoginEntity.PrivilegeLevel privilege = (UserLoginEntity.PrivilegeLevel)Enum.Parse(typeof(UserLoginEntity.PrivilegeLevel), selectedSubItems[1].Text);
+            if (privilege > GlobalTools.user_level)
+            {
+                register_failed("权限不足");
+                return;
+            }
+
             var optional_params = new { UserName = textBox_username_input.Text, Privilege = (int)(UserLoginEntity.PrivilegeLevel)Enum.Parse(typeof(UserLoginEntity.PrivilegeLevel), comboBox_privilege_input.Text) };
             SqlHandler.Instance.conn.Execute("UPDATE user_login SET privilege = @Privilege WHERE user_name = @UserName", optional_params);
             if (this.panel_optional.Visible)
@@ -144,27 +163,59 @@ namespace FinalWork.UIForms
                 MessageBox.Show("请选择用户再修改密码.", "请选择用户", MessageBoxButtons.OK);
                 return;
             }
-            new PasswdChange(this.textBox_username_input.Text).ShowDialog();
+            new PasswdChangeForm(this.textBox_username_input.Text).ShowDialog();
             return;
         }
 
         private void button_add_Click(object sender, EventArgs e)
         {
             UserOptionalInfoEntity userOptionalInfoEntity = null;
+            UserLoginEntity.PrivilegeLevel privilege = (UserLoginEntity.PrivilegeLevel)Enum.Parse(typeof(UserLoginEntity.PrivilegeLevel), comboBox_privilege_input.Text);
+            if(privilege > GlobalTools.user_level)
+            {
+                register_failed("权限不足");
+                return;
+            }
             if (panel_optional.Visible) userOptionalInfoEntity = new UserOptionalInfoEntity(0, textBox_name_input.Text, comboBox_gender_input.Text, textBox_age_input.Text == "" ? null : int.Parse(textBox_age_input.Text), textBox_email_input.Text, textBox_profession_input.Text, textBox_hobby_input.Text);
-            var ret = UserTools.CreateUser(textBox_username_input.Text, (UserLoginEntity.PrivilegeLevel)Enum.Parse(typeof(UserLoginEntity.PrivilegeLevel), comboBox_privilege_input.Text), userOptionalInfoEntity);
+            var ret = UserTools.CreateUser(textBox_username_input.Text, privilege, userOptionalInfoEntity);
+            UserTools.ChangePasswd(textBox_username_input.Text, "passwd");
             if (ret != null) { refresh_content(); refresh_content(); return; }
             register_failed();
         }
 
         private DialogResult register_failed(string reason = "用户名重复")
         {
-            return MessageBox.Show(reason, "注册失败.", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
+            return MessageBox.Show(reason, "操作失败.", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Warning);
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new HelpForm().ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string username_to_del = textBox_username_input.Text;
+            int privilege = comboBox_privilege_input.SelectedIndex;
+            if(privilege >= (int)GlobalTools.user_level) {
+                MessageBox.Show("没有权限", "删除确认", MessageBoxButtons.OK);
+                return;
+            }
+            if(username_to_del == "")
+            {
+                MessageBox.Show("请选择用户", "删除确认", MessageBoxButtons.OK);
+                return;
+            }
+            var ret = MessageBox.Show("是否删除 " + username_to_del + " 用户?", "删除确认", MessageBoxButtons.OKCancel);
+            if (ret != DialogResult.OK) return;
+            UserTools.RemoveUser(username_to_del);
+            refresh_content();
+            return;
         }
     }
 }

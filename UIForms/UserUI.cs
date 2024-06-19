@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalWork.UIForms.SubUI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,12 +30,22 @@ namespace FinalWork.UIForms
 
         private void 图书查询ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new QueryBooks().Show();
+            new QueryBooksForm().Show();
         }
 
         private void 账户管理ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new UserInfo().Show();
+            new UserInfoForm().Show();
+        }
+
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new HelpForm().ShowDialog();
+        }
+
+        private void 图书推荐榜ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new UserStatisticForm().Show();
         }
     }
 }
